@@ -1,0 +1,12 @@
+{
+  "name": "nosql-social-experiment",
+  "version": "1.0.0",
+  "description": "This is a social media experiment app where people can communicate with each other and create friend lists",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
