@@ -1,90 +1,77 @@
-# 18 NoSQL: Social Network API
+# Social Network API
+
+## Table of Contents
+
+- [Description](#description)
+- [User Story](#user-story)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [API Routes](#api-routes)
+- [Walkthrough Video](#walkthrough-video)
+- [Links](#links)
 
 ## Description
 
-This project is a RESTful API for a social network web application where users can share thoughts, react to friends’ thoughts, and manage a friend list. Built with Express.js and MongoDB using Mongoose ODM, this API provides robust features for handling unstructured data efficiently.
+This project is an API for a social network web application built using Express.js and MongoDB. It allows users to share their thoughts, react to friends' thoughts, and manage a friend list. The API supports creating, updating, and deleting users, thoughts, and reactions.
 
 ## User Story
 
-```md
-AS A social media startup
-I WANT an API for my social network that uses a NoSQL database
-SO THAT my website can handle large amounts of unstructured data
-```
+As a social media startup, I want an API for my social network that uses a NoSQL database so that my website can handle large amounts of unstructured data.
 
-## Acceptance Criteria
+## Technologies Used
 
-```md
-GIVEN a social network API
-WHEN I enter the command to invoke the application
-THEN my server is started and the Mongoose models are synced to the MongoDB database
-WHEN I open API GET routes in Insomnia for users and thoughts
-THEN the data for each of these routes is displayed in a formatted JSON
-WHEN I test API POST, PUT, and DELETE routes in Insomnia
-THEN I am able to successfully create, update, and delete users and thoughts in my database
-WHEN I test API POST and DELETE routes in Insomnia
-THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
-```
+- **Node.js**: JavaScript runtime for building server-side applications.
+- **Express.js**: Web framework for Node.js.
+- **MongoDB**: NoSQL database for data storage.
+- **Mongoose**: Object Data Modeling (ODM) library for MongoDB and Node.js.
 
 ## Installation
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/your-username/social-network-api.git
+   cd social-network-api
    ```
-2. Navigate to the project directory:
-   ```bash
-   cd <project-directory>
-   ```
-3. Install dependencies:
+
+2. Install dependencies:
    ```bash
    npm install
    ```
-4. Set up your `.env` file with your MongoDB URI:
-   ```
+
+3. Set up your `.env` file with your MongoDB URI:
+   ```plaintext
    MONGODB_URI=mongodb://localhost/social_network_api
    ```
 
-## Usage
-
-1. Start the server:
+4. Start the application:
    ```bash
    npm start
    ```
-2. Use Insomnia or Postman to test the API routes.
 
 ## API Routes
 
-### Users
+- **Users**
+  - `GET /api/users` - Retrieve all users
+  - `GET /api/users/:userId` - Retrieve a single user by ID
+  - `POST /api/users` - Create a new user
+  - `PUT /api/users/:userId` - Update a user by ID
+  - `DELETE /api/users/:userId` - Delete a user by ID
+  - `POST /api/users/:userId/friends/:friendId` - Add a friend
+  - `DELETE /api/users/:userId/friends/:friendId` - Remove a friend
 
-- **GET** `/api/users`: Retrieve all users.
-- **GET** `/api/users/:userId`: Retrieve a single user by ID.
-- **POST** `/api/users`: Create a new user.
-- **PUT** `/api/users/:userId`: Update a user by ID.
-- **DELETE** `/api/users/:userId`: Delete a user by ID.
-- **POST** `/api/users/:userId/friends/:friendId`: Add a friend.
-- **DELETE** `/api/users/:userId/friends/:friendId`: Remove a friend.
-
-### Thoughts
-
-- **GET** `/api/thoughts`: Retrieve all thoughts.
-- **GET** `/api/thoughts/:thoughtId`: Retrieve a single thought by ID.
-- **POST** `/api/thoughts`: Create a new thought.
-- **PUT** `/api/thoughts/:thoughtId`: Update a thought by ID.
-- **DELETE** `/api/thoughts/:thoughtId`: Delete a thought by ID.
-- **POST** `/api/thoughts/:thoughtId/reactions`: Create a reaction to a thought.
-- **DELETE** `/api/thoughts/:thoughtId/reactions/:reactionId`: Remove a reaction by ID.
+- **Thoughts**
+  - `GET /api/thoughts` - Retrieve all thoughts
+  - `GET /api/thoughts/:thoughtId` - Retrieve a single thought by ID
+  - `POST /api/thoughts` - Create a new thought
+  - `PUT /api/thoughts/:thoughtId` - Update a thought by ID
+  - `DELETE /api/thoughts/:thoughtId` - Delete a thought by ID
+  - `POST /api/thoughts/:thoughtId/reactions` - Add a reaction to a thought
+  - `DELETE /api/thoughts/:thoughtId/reactions/:reactionId` - Remove a reaction from a thought
 
 ## Walkthrough Video
 
-A walkthrough video demonstrating the functionality of the API and all acceptance criteria can be found here: [Walkthrough Video Link](<insert-link-here>).
+[Insert link to your walkthrough video here once completed]
 
-## License
+## Links
 
-This project is licensed under the MIT License.
-
-## Acknowledgments
-
-- [MongoDB](https://www.mongodb.com/)
-- [Express.js](https://expressjs.com/)
-- [Mongoose](https://mongoosejs.com/)
+- [GitHub Repository](https://github.com/your-username/social-network-api)
