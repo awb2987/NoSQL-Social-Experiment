@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const User = require('../models/User');
 
 const userController = {
   // GET all users
@@ -18,6 +18,34 @@ const userController = {
     User.findOne({ _id: req.params.userId })
       .populate('thoughts')
       .populate('friends')
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user found with the provided ID' })
+          : res.json(user)
+      )
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json(err);
+      });
+  },
+
+  // CREATE a new user
+  createUser(req, res) {
+    User.create(req.body)
+      .then((user) => res.status(201).json(user))
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json(err);
+      });
+  },
+
+  // UPDATE a user based on their ID
+  updateUser(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      req.body,
+      { new: true }
+    )
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user found with the provided ID' })
