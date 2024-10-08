@@ -22,6 +22,11 @@ const users = [
     email: 'joe_smith@example.com',
     friends: [],
   },
+  {
+    username: 'james',
+    email: 'james_snow@example.com',
+    friends: [],
+  }
 ];
 
 const thoughts = [
@@ -30,6 +35,20 @@ const thoughts = [
     username: 'david',
     reactions: [
       { reactionBody: "Well put!", username: "joe_smith" }
+    ]
+  },
+  {
+    thoughtText: "Life has its ups and downs...",
+    username: 'joe_smith',
+    reactions: [
+    { reactionBody: "I could not agree more!", username: "james" }
+    ]
+  },
+  {
+    thoughtText: "This was a difficult assignment!",
+    username: 'james',
+    reactions: [
+      { reactionBody: "It took me a long time to finish as well.", username: "david" }
     ]
   },
   {

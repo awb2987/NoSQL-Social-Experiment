@@ -4,100 +4,126 @@ const thoughtController = {
   // GET all thoughts
   async getAllThoughts(req, res) {
     try {
-      const thoughts = await Thought.find({});
-      res.json(thoughts);
+      const thoughtData = await Thought.find()
+        .sort({ createdAt: -1 });
+
+      res.json(thoughtData);
     } catch (err) {
-      console.error(err);
+      console.log(err);
       res.status(500).json(err);
     }
   },
-
   // GET a single thought by the ID
   async getThoughtById(req, res) {
     try {
-      const thought = await Thought.findOne({ _id: req.params.thoughtId });
-      if (!thought) {
-        return res.status(404).json({ message: 'Thought not found with the provided ID' });
+      const thoughtData = await Thought.findOne({ _id: req.params.thoughtId });
+
+      if (!thoughtData) {
+        return res.status(404).json({ message: 'No thought with the provided ID' });
       }
-      res.json(thought);
+
+      res.json(thoughtData);
     } catch (err) {
-      console.error(err);
+      console.log(err);
       res.status(500).json(err);
     }
   },
-
   // CREATE a new thought
   async createThought(req, res) {
-    // Basic validation
-    if (!req.body.thoughtText || !req.body.username || !req.body.userId) {
-      return res.status(400).json({ message: 'Thought text, username, and user ID are required.' });
-    }
-
     try {
-      // Check if user exists prior to creating thought
-      const user = await User.findById(req.body.userId);
-      if (!user) {
-        return res.status(404).json({ message: 'User not found.' });
-      }
+      const thoughtData = await Thought.create(req.body);
 
-      const thought = await Thought.create(req.body);
-      await User.findOneAndUpdate(
+      const userData = await User.findOneAndUpdate(
         { _id: req.body.userId },
-        { $push: { thoughts: thought._id } },
+        { $push: { thoughts: thoughtData._id } },
         { new: true }
       );
 
-      res.status(201).json({ message: 'Thought has been created successfully!' });
+      if (!userData) {
+        return res.status(404).json({ message: 'Thought created, but no user with the provided ID' });
+      }
+
+      res.json({ message: 'Thought successfully created!' });
     } catch (err) {
-      console.error(err);
+      console.log(err);
       res.status(500).json(err);
     }
   },
-
   // UPDATE a thought based on the ID with validation
   async updateThought(req, res) {
-    if (!req.body.thoughtText) {
-      return res.status(400).json({ message: 'Thought text is required.' });
+    const thoughtData = await Thought.findOneAndUpdate({ _id: req.params.thoughtId }, { $set: req.body }, { runValidators: true, new: true });
+
+    if (!thoughtData) {
+      return res.status(404).json({ message: 'No thought found with the provided ID!' });
     }
 
-    try {
-      const thought = await Thought.findOneAndUpdate(
-        { _id: req.params.thoughtId },
-        req.body,
-        { new: true, runValidators: true }
-      );
+    res.json(thoughtData);
 
-      if (!thought) {
-        return res.status(404).json({ message: 'No thought found with the provided ID' });
-      }
-      res.json(thought);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json(err);
-    }
+    console.log(err);
+    res.status(500).json(err);
   },
-
   // DELETE a thought based on the ID
   async deleteThought(req, res) {
     try {
-      const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
-      if (!thought) {
-        return res.status(404).json({ message: 'No thought found with the provided ID' });
+      const thoughtData = await Thought.findOneAndDelete({ _id: req.params.thoughtId })
+
+      if (!thoughtData) {
+        return res.status(404).json({ message: 'No thought found with the provided ID!' });
       }
 
-      const user = await User.findOneAndUpdate(
+      // DELETE a thought ID from user thoughts field
+      const userData = User.findOneAndUpdate(
         { thoughts: req.params.thoughtId },
         { $pull: { thoughts: req.params.thoughtId } },
         { new: true }
       );
 
-      if (!user) {
-        return res.status(404).json({ message: 'Thought deleted, but associated user not found' });
+      if (!userData) {
+        return res.status(404).json({ message: 'Thought created, but no user with this provided ID found!' });
       }
 
-      res.json({ message: 'Thought deleted successfully!' });
+      res.json({ message: 'Thought successfully deleted!' });
     } catch (err) {
-      console.error(err);
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
+
+  // CREATE a reaction to a thought
+  async createReaction(req, res) {
+    try {
+      const thoughtData = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $addToSet: { reactions: req.body } },
+        { runValidators: true, new: true }
+      );
+
+      if (!thoughtData) {
+        return res.status(404).json({ message: 'No thought with the provided ID!' });
+      }
+
+      res.json(thoughtData);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
+  // DELETE reaction from a thought
+  async deleteReaction(req, res) {
+    try {
+      const thoughtData = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $pull: { reactions: { reactionId: req.params.reactionId } } },
+        { runValidators: true, new: true }
+      );
+
+      if (!thoughtData) {
+        return res.status(404).json({ message: 'No thought with the provided ID!' });
+      }
+
+      res.json(thoughtData);
+    } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },

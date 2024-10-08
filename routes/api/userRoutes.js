@@ -10,14 +10,12 @@ const {
 } = require('../../controllers/userController');
 
 // Routes for users
-router.get('/', getAllUsers);
-router.get('/:userId', getUserById);
-router.post('/', createUser);
-router.put('/:userId', updateUser);
-router.delete('/:userId', deleteUser);
+router.route('/').get(getAllUsers).post(createUser)
 
-// Routes for friends
-router.post('/:userId/friends/:friendId', addFriend);
-router.delete('/:userId/friends/:friendId', deleteFriend);
+// Routes for user Id
+router.route('/:userId').get(getUserById).put(updateUser).delete(deleteUser);
+
+// Routes for userId and friendId
+router.route('/:userId/friends/:friendId').post(addFriend).delete(deleteFriend);
 
 module.exports = router;

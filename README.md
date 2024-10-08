@@ -29,7 +29,7 @@ As a social media startup, I want an API for my social network that uses a NoSQL
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/awb2987/social-network-api.git
+   git clone https://github.com/awb2987/NoSQL-Social-Experiment
    cd social-network-api
    ```
 
@@ -71,7 +71,8 @@ As a social media startup, I want an API for my social network that uses a NoSQL
 ## Walkthrough Video
 
 [Watch the walkthrough video here](https://www.example.com/your-video-link)
+[Backup video walkthrough tutorial link](example.com)
 
 ## Links
 
-- [GitHub Repository](https://github.com/awb2987/social-network-api)
+- [GitHub Repository](https://github.com/awb2987/NoSQL-Social-Experiment)
