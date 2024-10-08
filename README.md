@@ -70,8 +70,8 @@ As a social media startup, I want an API for my social network that uses a NoSQL
 
 ## Walkthrough Video
 
-[Watch the walkthrough video here](https://www.example.com/your-video-link)
-[Backup video walkthrough tutorial link](example.com)
+[Watch the walkthrough video here](https://drive.google.com/file/d/1u5pripqRWCa5_IcbxqTE8mjDUpdDYi5i/view)
+[Backup video walkthrough tutorial link](https://drive.google.com/file/d/1u5pripqRWCa5_IcbxqTE8mjDUpdDYi5i/view?usp=sharing)
 
 ## Links
 
